@@ -1,0 +1,18 @@
+export const TransactionType = {
+  CREATE_SUBSCRIPTION: 'CREATE_SUBSCRIPTION',
+  RENEW_SUBSCRIPTION: 'RENEW_SUBSCRIPTION',
+  CANCEL_SUBSCRIPTION: 'CANCEL_SUBSCRIPTION',
+  PURCHASE_CREDITS: 'PURCHASE_CREDITS',
+  REFUND: 'REFUND',
+} as const;
+
+export const TransactionStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+  REFUNDED: 'REFUNDED',
+} as const;
+
+export const PaymentProvider = {
+  RAZORPAY: 'RAZORPAY',
+} as const;

@@ -1,0 +1,220 @@
+import { Document, ObjectId } from 'mongoose';
+// import SegmentRepository from '../segment/segment.repository';
+import contactModel, { IContact } from './contact.model';
+import userModel from '../user/user.model';
+
+// export const createContact = async (
+//   body: any,
+//   userId: string | ObjectId
+// ): Promise<IContact> => {
+//   try {
+//     const newContact: Document<unknown, {}, IContact> &
+//       IContact &
+//       Required<{
+//         _id: unknown;
+//       }> = await contactModel.create({
+//       ...body,
+//       created_by: userId,
+//     });
+
+//     if (!newContact) {
+//       throw new Error('Contact not created');
+//     }
+
+//     const segment = await SegmentRepository.findSegmentById(
+//       body.assigned_segment
+//     );
+
+//     if (!segment) {
+//       throw new Error('Segment not found');
+//     }
+
+//     segment.recipients.push(newContact._id);
+
+//     await segment.save();
+
+//     const user = await userModel.findById(userId);
+//     if (!user) {
+//       throw new Error('User not found');
+//     }
+//     user.total_imported_contacts_count += 1;
+//     await user.save();
+
+//     return newContact;
+//   } catch (err) {
+//     console.log(err);
+//     if (err instanceof Error) {
+//       throw err;
+//     }
+//     throw new Error('Failed to create contact');
+//   }
+// };
+
+export const createContact = async (
+  body: any,
+  userId: string | ObjectId
+): Promise<IContact> => {
+  try {
+    // only create the contact document here
+    const newContact: Document<unknown, {}, IContact> &
+      IContact &
+      Required<{ _id: unknown }> = await contactModel.create({
+      ...body,
+      created_by: userId,
+    });
+
+    // increment user stats (kept as-is)
+    const user = await userModel.findById(userId);
+    if (!user) throw new Error('User not found');
+    user.total_imported_contacts_count += 1;
+    await user.save();
+
+    return newContact;
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) throw err;
+    throw new Error('Failed to create contact');
+  }
+};
+
+
+export const findAllContacts = async (
+  userId: string | ObjectId,
+  segmentId: string | ObjectId
+) => {
+  try {
+    const contacts = await contactModel.find({
+      created_by: userId,
+      assigned_segment: segmentId,
+    });
+    return contacts;
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error('Failed to find contacts');
+  }
+};
+
+export const findContactById = async (id: string | ObjectId) => {
+  try {
+    const contact = await contactModel
+      .findById(id)
+      .populate('createdBy')
+      .populate('updatedBy');
+    return contact;
+  } catch (err: any) {
+    console.log(err);
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error('Failed to find contact');
+  }
+};
+
+export const updateContact = async (
+  id: string,
+  contact: any
+): Promise<IContact> => {
+  try {
+    const updatedContact = await contactModel.findByIdAndUpdate(id, contact, {
+      new: true,
+    });
+
+    return updatedContact as IContact;
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error('Failed to update contact');
+  }
+};
+
+export const deleteContact = async (id: string): Promise<IContact> => {
+  try {
+    const deletedContact = await contactModel.findByIdAndDelete(id);
+    return deletedContact as IContact;
+  } catch (err: any) {
+    console.log(err);
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error('Failed to delete contact');
+  }
+};
+
+// export const findByEmail = async (email: string, userId: string | ObjectId) => {
+//   try {
+//     const contact = await contactModel.findOne({
+//       email: email,
+//       created_by: userId,
+//     });
+//     return contact as IContact;
+//   } catch (err) {
+//     console.log(err);
+//     if (err instanceof Error) {
+//       throw err;
+//     }
+//     throw new Error('Failed to find contact by email');
+//   }
+// };
+
+export const findByEmailInsegment = async (
+  email: string,
+  segmentId: string | ObjectId
+) => {
+  try {
+    const contact = await contactModel.findOne({ email, assigned_segment: segmentId });
+    return contact as IContact | null;
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) throw err;
+    throw new Error('Failed to find contact by email in segment');
+  }
+};
+
+
+export const bulkUpsertByEmailsInsegment = async (
+  recipients: { email: string; name?: string }[],
+  segmentId: string | ObjectId,
+  userId: string | ObjectId
+): Promise<{ ids: ObjectId[]; stats: { total: number; uniqueValid: number; invalid: number } }> => {
+  // Stats in "dumb mode"
+  const total = recipients.length;
+
+  if (total === 0) {
+    return { ids: [], stats: { total, uniqueValid: 0, invalid: 0 } };
+  }
+
+  // Build operations without filtering
+  const ops = recipients.map(({ email, name }) => ({
+    updateOne: {
+      filter: { email, assigned_segment: segmentId },
+      update: {
+        $setOnInsert: {
+          email,                // store as-is
+          name,
+          assigned_segment: segmentId,
+          created_by: userId,
+        },
+      },
+      upsert: true,
+    },
+  }));
+
+  // Perform bulk write
+  await contactModel.bulkWrite(ops, { ordered: false });
+
+  // Fetch back _ids
+  const docs = await contactModel.find(
+    { assigned_segment: segmentId, email: { $in: recipients.map(r => r.email) } },
+    { _id: 1 }
+  ).lean();
+
+  return {
+    ids: docs.map(d => d._id as ObjectId),
+    stats: { total, uniqueValid: total, invalid: 0 }, // treat all as valid
+  };
+};
