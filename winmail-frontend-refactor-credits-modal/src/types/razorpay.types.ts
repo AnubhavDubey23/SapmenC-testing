@@ -4,6 +4,11 @@ export interface RazorpaySuccessResponse {
   razorpay_signature: string;
 }
 
+export interface RazorpaySubscriptionSuccessResponse {
+  razorpay_payment_id: string;
+  razorpay_subscription_id: string;
+  razorpay_signature: string;
+}
 export interface RazorpayErrorResponse {
   error: {
     code: string;
@@ -40,4 +45,11 @@ export interface RazorpayOpts {
 export type RazorpayPaymentOpts = RazorpayOpts & {
   order_id?: string;
   subscription_id?: string;
+  modal?: {
+    confirm_close?: boolean;
+    escape?: boolean;
+    animation?: boolean;
+    backdropclose?: boolean;
+    ondismiss?: () => void;
+  };
 };

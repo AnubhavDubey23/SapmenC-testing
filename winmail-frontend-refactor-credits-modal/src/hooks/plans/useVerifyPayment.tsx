@@ -9,13 +9,18 @@ export type RazorpayPaymentVerificationBody = {
   razorpay_signature: string;
 };
 
+export type RazorpayOrderVerificationBody = {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+};
 const useVerifyPayment = () => {
   const toast = useToast();
   const [loading, setLoading] = useState<boolean>(false);
   const authState = useAppSelector((state) => state.auth);
 
   const verifyPayment = async (
-    body: RazorpayPaymentVerificationBody,
+    body: RazorpayPaymentVerificationBody | RazorpayOrderVerificationBody,
     authToken?: string
   ) => {
     setLoading(true);

@@ -122,6 +122,13 @@ const useRazorpay = () => {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
       ...opts,
       currency: "INR",
+      modal: {
+        confirm_close: true,
+        escape: true,
+        animation: true,
+        backdropclose: false,
+        ...opts.modal,
+      },
     };
 
     if (!validateRazorpayOpts(razorpay_options)) {
@@ -132,6 +139,8 @@ const useRazorpay = () => {
 
     razorpay.on("payment.failed", async function (response: RazorpayErrorResponse) {
       console.error("Payment failed:", response);
+      // Restore body scroll on payment failure
+      document.body.style.overflow = 'auto';
     });
 
     return razorpay;

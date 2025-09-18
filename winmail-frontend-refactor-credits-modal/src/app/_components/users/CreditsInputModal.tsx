@@ -62,11 +62,24 @@ export function CreditsInputModal({
 
         onOpenPaymentModal?.();
 
+        // Add proper event handlers for Razorpay modal
+        rzp.on('payment.submit', () => {
+          document.body.style.overflow = 'auto';
+        });
+        
+        rzp.on('payment.cancel', () => {
+          document.body.style.overflow = 'auto';
+        });
+        
+        rzp.on('payment.failed', () => {
+          document.body.style.overflow = 'auto';
+        });
         // Open the Razorpay modal
         rzp.open();
       }
     } catch (err) {
       console.error(err);
+      document.body.style.overflow = 'auto';
     }
   };
 

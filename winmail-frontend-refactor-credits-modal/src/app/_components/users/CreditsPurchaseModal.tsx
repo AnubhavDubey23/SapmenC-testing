@@ -102,6 +102,18 @@ export const CreditsPurchaseModal = ({
 
         onOpenPaymentModal?.();
 
+        // Add proper event handlers for Razorpay modal
+        rzp.on('payment.submit', () => {
+          document.body.style.overflow = 'auto';
+        });
+        
+        rzp.on('payment.cancel', () => {
+          document.body.style.overflow = 'auto';
+        });
+        
+        rzp.on('payment.failed', () => {
+          document.body.style.overflow = 'auto';
+        });
         // Open the Razorpay modal
         rzp.open();
       }
@@ -114,6 +126,7 @@ export const CreditsPurchaseModal = ({
         duration: 5000,
         isClosable: true,
       });
+      document.body.style.overflow = 'auto';
     }
   };
 
