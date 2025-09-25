@@ -7,20 +7,18 @@ import {
 import useCreateSubscription from '@/hooks/plans/useCreateSubscription';
 import useCredits from '@/hooks/credits/useCredits';
 import useRazorpay from '@/hooks/razorpay/useRazorpay';
-import { RazorpayPaymentOpts, RazorpaySuccessResponse } from '@/types/razorpay.types';
+import { RazorpayPaymentOpts, RazorpayPaymentResponse, RazorpaySubscriptionSuccessResponse } from '@/types/razorpay.types';
 import useVerifyPayment from '@/hooks/plans/useVerifyPayment';
 import { useAppSelector } from '@/store';
+import { usePayment } from '@/contexts/PaymentContext';
 
 interface OrderSummaryProps {
   plan: any; // contains plan details { name, item: { amount } }
   onSuccess?: () => void; // optional callback after successful payment
-  // onClick: () => void;
   onClose: () => void;
-  onRazorpayOpen: () => void;
-  onRazorpayClose: () => void;
 }
 
-const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,onRazorpayOpen,onRazorpayClose  }) => {
+const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose }) => {
   const [price] = useState(plan.item.amount / 100);
   const tax = 0.18 * parseInt(price.toString());
   const total = tax + price;
@@ -28,11 +26,24 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,on
   const { createSubscription , loading: createLoading} = useCreateSubscription();
   const { initializePayment,isLoaded} = useRazorpay();
   const { verifyPayment, loading: verifyPaymentLoading } = useVerifyPayment();
+  const { openPaymentModal, closePaymentModal } = usePayment();
   const toast = useToast();
   const authState = useAppSelector((state) => state.auth);
 
   const handlePayment = async () => {
     try {
+      // Check if Razorpay is loaded
+      if (!isLoaded) {
+        toast({ 
+          title: "Error", 
+          description: "Payment system is loading. Please try again in a moment.", 
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      }
+
       // Step 1: Create Razorpay Order via backend
       console.log("Token",authState.currentToken);
       const res = await createSubscription(plan.id,authState.currentToken ?? undefined);
@@ -48,34 +59,46 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,on
         return;
       }
 
-      // if (!isLoaded) {
-      //   toast({ title: "Error", description: "Razorpay not loaded yet", status: "error" });
-      //   return;
-      // }
       
       // Step 2: Razorpay Checkout Options
       const opts: Omit<RazorpayPaymentOpts, 'key' | 'currency'> = {
         subscription_id: res.subscription.id,
-        handler: async function (response: RazorpaySuccessResponse) {
+        name: 'SapMen C Private Limited',
+        description: `${plan.name} Plan Subscription`,
+        // Avoid mixed-content by omitting or using a fully-qualified HTTPS URL for images
+        // image: 'https://app.mailerone.in/logo.png',
+        modal: {
+          ondismiss: () => closePaymentModal(),
+          escape: true,
+          backdropclose: true,
+          animation: true,
+        },
+        theme: {
+          color: '#6D66C8'
+        },
+        handler: async function (response: RazorpayPaymentResponse) {
           try {
             // Use the 'in' operator as a type guard to check which response type we have
             if ('razorpay_subscription_id' in response) {
               // Inside this 'if' block, TypeScript now knows 'response' is a RazorpaySubscriptionSuccessResponse
+              const subscriptionResponse = response as RazorpaySubscriptionSuccessResponse;
               
               const verifyRes = await verifyPayment({
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_subscription_id: response.razorpay_subscription_id,
-                razorpay_signature: response.razorpay_signature,
+                razorpay_payment_id: subscriptionResponse.razorpay_payment_id,
+                razorpay_subscription_id: subscriptionResponse.razorpay_subscription_id,
+                razorpay_signature: subscriptionResponse.razorpay_signature,
               });
 
-              if (verifyRes?.status) {
+              // useVerifyPayment already throws on !status and returns data.data
+              if (verifyRes) {
                 toast({ title: 'Payment Successful', status: 'success' });
+                onSuccess?.(); // Call success callback if provided
               } else {
                 toast({ title: 'Payment Verification Failed', status: 'error' });
               }
             } else {
-              // This is the case for a regular payment, which we don't expect here.
-              toast({ title: 'Payment Error: Unexpected response type', status: 'error' });
+              // This is the case for a regular payment, which we don't expect here for subscriptions.
+              toast({ title: 'Payment Error: Unexpected response type for subscription', status: 'error' });
             }
           } catch (error) {
             console.error('Verification error:', error);
@@ -85,7 +108,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,on
               duration: 5000,
             });
           } finally {
-            onRazorpayClose();
+            closePaymentModal();
           }
         },
         prefill: {
@@ -103,22 +126,41 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,on
 
     
 
-      onClose(); // Close cart modal
-      onRazorpayOpen(); // Notify parent to close other modals
+      // First, close the parent modal (the Cart).
+      onClose();
+
+      // Then, signal that the payment process should begin.
+      openPaymentModal();
+
+      // We MUST wait for the modals to unmount before opening Razorpay.
+      // 300ms is a safe bet for animations to finish.
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       document.body.style.overflow = 'auto';
-
-      // // Add a small delay to ensure modals are completely removed from DOM
-      await new Promise(r => setTimeout(r, 50));
 
       // // wait for next paint(s) so Chakra unmounts modal DOM
       // await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 
 
       // Step 3: Open Razorpay
-      const rzp = initializePayment(opts);
-      if (rzp) {
-        rzp.open();
+      try {
+        const rzp = initializePayment(opts);
+        if (rzp) {
+          rzp.open();
+        } else {
+          throw new Error('Failed to initialize Razorpay');
+        }
+      } catch (razorpayError) {
+        console.error('Razorpay initialization error:', razorpayError);
+        toast({
+          title: 'Payment System Error',
+          description: 'Failed to initialize payment system. Please try again.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+        closePaymentModal();
+        return;
       }
       
     } catch (err) {
@@ -130,7 +172,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose,on
         duration: 5000,
         isClosable: true,
       });
-      onRazorpayClose(); // Ensure Razorpay state is cleaned up on error
+      closePaymentModal(); // Ensure Razorpay state is cleaned up on error
     }
   };
 

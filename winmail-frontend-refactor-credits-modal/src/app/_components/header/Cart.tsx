@@ -15,13 +15,10 @@ import { planFeaturesMap } from '@/utils/plan-features';
 interface CartProps {
   plan: any;
   isOpen: boolean;
-  // onClick: (planId: string) => void;
   onClose: () => void;
-  onRazorpayOpen: () => void;
-  onRazorpayClose: () => void;
 }
 
-export function Cart({ plan, isOpen, onClose,onRazorpayOpen,onRazorpayClose  }: CartProps) {
+export function Cart({ plan, isOpen, onClose }: CartProps) {
   const maxPoints =
     planFeaturesMap.get(plan.item.name.toLowerCase())?.length || 0;
 
@@ -61,9 +58,6 @@ export function Cart({ plan, isOpen, onClose,onRazorpayOpen,onRazorpayClose  }: 
               <OrderSummary 
                 plan={plan} 
                 onClose={onClose} 
-                // onClick={() => onClick(plan.id)} 
-                onRazorpayOpen={onRazorpayOpen}
-                onRazorpayClose={onRazorpayClose} 
               />
             </Box>
           </Flex>

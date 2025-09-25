@@ -10,7 +10,7 @@ interface UpgradePlanModalProps {
   handleClose: () => void;
   // handleClick: (planId: string) => void;
   currentPlan: string;
-  onRazorpayOpen: () => void; 
+  // onRazorpayOpen: () => void; 
 }
 
 export function UpgradePlanModal({
@@ -18,7 +18,7 @@ export function UpgradePlanModal({
   handleClose,
   // handleClick,
   currentPlan,
-  onRazorpayOpen,
+  // onRazorpayOpen,
 }: UpgradePlanModalProps) {
   const { plans, loading: plansLoading } = usePlans();
   // const [isRazorpayOpen, setIsRazorpayOpen] = useState(false);
@@ -50,7 +50,7 @@ export function UpgradePlanModal({
               currentPlan={currentPlan}
               // onRazorpayOpen={handleRazorpayOpen}
               // onRazorpayClose={handleRazorpayClose}
-              onRazorpayOpen={onRazorpayOpen} 
+              // onRazorpayOpen={onRazorpayOpen} 
             />
           )}
         </Flex>

@@ -2,6 +2,7 @@
 
 import ReduxProvider from '@/store/redux-provider';
 import { ChakraProvider } from '@chakra-ui/react';
+import { PaymentProvider } from '@/contexts/PaymentContext';
 import { HydrationProvider } from 'react-hydration-provider';
 import { extendTheme } from '@chakra-ui/react';
 import { I18nextProvider } from 'react-i18next';
@@ -69,7 +70,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <HydrationProvider>
       <ReduxProvider>
         <ChakraProvider theme={theme}>
-          <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+          <PaymentProvider>
+            <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+          </PaymentProvider>
         </ChakraProvider>
       </ReduxProvider>
     </HydrationProvider>

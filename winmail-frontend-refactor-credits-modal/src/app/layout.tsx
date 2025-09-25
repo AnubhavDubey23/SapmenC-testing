@@ -77,10 +77,6 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-5V7VNSRM" />
       <body className={sfProDisplay.className}>
         <Providers>
-          <Script
-            id="razorpay-script"
-            src="https://checkout.razorpay.com/v1/checkout.js"
-          />
           {process.env.NODE_ENV === 'development' && (
             <div
               style={{

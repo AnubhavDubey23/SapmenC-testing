@@ -31,12 +31,6 @@ export default function SubscriptionModal({ onClose }: SubscriptionModalProps) {
     onModalClose();
   };
 
-  // + CREATE the master function to close ALL modals
-  const handlePaymentStart = () => {
-    onModalClose(); // This closes UpgradePlanModal
-    onClose();      // This closes SubscriptionModal (itself)
-  };
-
   const {
     subscription,
     getUserPlanDetails,
@@ -186,7 +180,6 @@ export default function SubscriptionModal({ onClose }: SubscriptionModalProps) {
         isOpen={isOpen}
         handleClose={onModalClose}
         // handleClick={handleClick}
-        onRazorpayOpen={handlePaymentStart}
       />
     </Box>
   );

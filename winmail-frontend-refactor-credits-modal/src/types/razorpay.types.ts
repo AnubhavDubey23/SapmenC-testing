@@ -4,6 +4,14 @@ export interface RazorpaySuccessResponse {
   razorpay_signature: string;
 }
 
+export interface RazorpaySubscriptionSuccessResponse {
+  razorpay_payment_id: string;
+  razorpay_subscription_id: string;
+  razorpay_signature: string;
+}
+
+export type RazorpayPaymentResponse = RazorpaySuccessResponse | RazorpaySubscriptionSuccessResponse;
+
 export interface RazorpayErrorResponse {
   error: {
     code: string;
@@ -25,13 +33,20 @@ export interface RazorpayOpts {
   name?: string;
   description?: string;
   image?: string;
-  handler: (response: RazorpaySuccessResponse) => Promise<void>;
+  handler: (response: RazorpayPaymentResponse) => Promise<void>;
   prefill?: {
     name?: string;
     email?: string;
     contact?: string;
   };
   notes?: Record<string, string>;
+  // Optional modal configuration documented by Razorpay
+  modal?: {
+    ondismiss?: () => void;
+    escape?: boolean;
+    backdropclose?: boolean;
+    animation?: boolean;
+  };
   theme?: {
     color?: string;
   };
