@@ -1,0 +1,25 @@
+export const ActionType = {
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  EXPORT: 'EXPORT',
+  IMPORT: 'IMPORT',
+  VIEW: 'VIEW',
+  TRIGGER: 'TRIGGER',
+  PERMISSION_CHANGE: 'PERMISSION_CHANGE',
+  SETTINGS_CHANGE: 'SETTINGS_CHANGE',
+} as const;
+
+export const ResourceType = {
+  USER: 'USER',
+  TEMPLATE: 'TEMPLATE',
+  SEGMENT: 'SEGMENT',
+  CONTACT: 'CONTACT',
+  TRANSACTION: 'TRANSACTION',
+} as const;
+
+export const ActivityStatus = {
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+  PENDING: 'PENDING',
+} as const;

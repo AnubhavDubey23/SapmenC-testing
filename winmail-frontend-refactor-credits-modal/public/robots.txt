@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mailerone.in
+
+# Sitemaps
+Sitemap: https://mailerone.in/sitemap.xml

@@ -1,0 +1,24 @@
+# Dependencies
+**/node_modules/
+.prettierignore
+.prettierrc
+
+
+# Environment variables
+.env
+.env.prod
+.keys
+
+# Git
+.git
+.github
+
+# Logs
+/logs
+
+# Misc
+migrate-mongo-config.js
+nodemon.json
+vercel.json
+README.md
+/migrations
