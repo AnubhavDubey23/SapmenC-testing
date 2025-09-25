@@ -76,12 +76,7 @@ class TemplateRepository implements ITemplateRepository {
       if (!isAuthorized) {
         throw new Error('Not authorized to view this template');
       }
-      const stats = await getEmailLogsByTemplateId(id);
-
-      let res = {
-        ...template.toObject(),
-        stats,
-      };
+      
       return template;
     } catch (err: any) {
       throw new Error(err);

@@ -135,9 +135,7 @@ export const verifyPurchaseCredits = async (
 ) => {
   try {
     const { id: userId } = req.user;
-    console.log(req.body);
-    const amount=req.body.amount;
-    console.log(amount);
+    const { amount } = req.body;
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
       req.body as RazorpayPaymentVerificationBody;
 
@@ -156,6 +154,8 @@ export const verifyPurchaseCredits = async (
         data: null,
       });
     }
+    
+    // Convert amount from paise to credits (1 rupee = 1 credit)
     await UserRepository.incrementCredits(userId, amount / 100);
 
     

@@ -115,8 +115,6 @@ export const sendMarketingMail = async (
       throw new Error('TEMPLATE_ALREADY_TRIGGERED');
     }
     const { email_data, subject } = template;
-    // handle case when segmentIds is empty or contains only one segment
-    // check if segmentIds is empty or contains only one segment
 
     if (segmentIds.length === 0) {
       throw new Error('No segments found');
@@ -159,6 +157,15 @@ export const sendMarketingMail = async (
       );
     }
 
+    // Deduct credits before sending emails
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $inc: { credits: -requiredCredits } },
+      { new: true }
+    );
+
+    if (!updatedUser) throw new Error('Failed to update user credits');
+
     // Send batch mails for all segments present
 
     for (const { segmentId, recipients } of segmentsWithRecipients) {
@@ -175,7 +182,7 @@ export const sendMarketingMail = async (
 
     const segmentIdsWithRecipients = Array.from(
       new Set(segmentsWithRecipients.map((segment) => segment.segmentId))
-    ); // Prevent duplicates
+    );
 
     await TemplateRepository.updateTemplate(
       templateId as string,
@@ -190,14 +197,6 @@ export const sendMarketingMail = async (
       resourceId: templateId as ObjectId,
       status: ActivityStatus.SUCCESS,
     });
-
-    const updatedUser = await userModel.findByIdAndUpdate(
-      userId,
-      { $inc: { credits: -requiredCredits } },
-      { new: true }
-    );
-
-    if (!updatedUser) throw new Error('Failed to update user credits');
 
     logger.info('Marketing email sent successfully');
   } catch (error: any) {
@@ -250,18 +249,14 @@ export const sendMarketingMailInQueue = async (
       throw new Error('DISPLAY_NAME_NOT_FOUND');
     }
 
-    // handle case when segmentIds contains multiple segments and when only one segment id is present in the string and no comma is present
     let segmentIdsArray: string[] = [];
     if (segmentIds.indexOf(',') === -1) {
-      // this means only one segment id is present in the string and no comma is present
       segmentIdsArray.push(segmentIds);
     } else {
-      // handle case when segmentIds contains multiple segments
       segmentIdsArray = segmentIds.split(',');
     }
 
     for (const segmentId of segmentIdsArray) {
-      // Get segment from the database
       const segment = await SegmentRepository.findSegmentById(segmentId);
       if (!segment) {
         throw new Error('Segment not found');
@@ -269,7 +264,6 @@ export const sendMarketingMailInQueue = async (
 
       const { recipients } = segment;
 
-      // Send email to all the recipients
       if (recipients.length > 0) {
         await sendBatchEmails(
           userId as string,

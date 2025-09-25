@@ -5,7 +5,7 @@ import SegmentDrawer from '../LabelDrawer';
 import { useTranslation } from 'react-i18next';
 
 const SegmentHeaderLeft = () => {
-  const { selectedsegment } = useAppSelector((state) => state);
+  const selectedsegment = useAppSelector((state) => state.selectedsegment);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 

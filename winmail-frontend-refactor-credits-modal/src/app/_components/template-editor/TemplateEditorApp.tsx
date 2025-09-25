@@ -11,10 +11,11 @@ import EMPTY_EMAIL_MESSAGE from '../documents/get-configuration/sample/empty-ema
 
 const TemplateEditorApp = () => {
   const hydrated = useHydrated();
-  const { selectedTemplate } = useAppSelector((state) => state);
+  const selectedTemplate = useAppSelector((state) => state.selectedTemplate);
   useEffect(() => {
     if (!selectedTemplate) {
       setDocument(EMPTY_EMAIL_MESSAGE);
+      return;
     }
     setDocument(selectedTemplate.email_data as TEditorConfiguration);
   }, [selectedTemplate.templateId]);

@@ -42,7 +42,6 @@ const selectedsegmentslice = createSlice({
   initialState,
   reducers: {
     setActivesegment(state, action: PayloadAction<ISelectedsegmentstate>) {
-      console.log('action.payload', action.payload.recipients.length);
       if (action.payload) {
         state.segmentId = action.payload.segmentId;
         state.name = action.payload.name;

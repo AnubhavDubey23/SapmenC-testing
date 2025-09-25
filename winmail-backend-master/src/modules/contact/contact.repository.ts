@@ -181,20 +181,24 @@ export const bulkUpsertByEmailsInsegment = async (
   segmentId: string | ObjectId,
   userId: string | ObjectId
 ): Promise<{ ids: ObjectId[]; stats: { total: number; uniqueValid: number; invalid: number } }> => {
-  // Stats in "dumb mode"
   const total = recipients.length;
 
   if (total === 0) {
     return { ids: [], stats: { total, uniqueValid: 0, invalid: 0 } };
   }
 
-  // Build operations without filtering
-  const ops = recipients.map(({ email, name }) => ({
+  // Validate emails and filter out invalid ones
+  const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
+  const validRecipients = recipients.filter(r => r.email && isValidEmail(r.email));
+  const invalid = total - validRecipients.length;
+
+  // Build operations with valid recipients only
+  const ops = validRecipients.map(({ email, name }) => ({
     updateOne: {
       filter: { email, assigned_segment: segmentId },
       update: {
         $setOnInsert: {
-          email,                // store as-is
+          email: email.toLowerCase().trim(),
           name,
           assigned_segment: segmentId,
           created_by: userId,
@@ -209,12 +213,12 @@ export const bulkUpsertByEmailsInsegment = async (
 
   // Fetch back _ids
   const docs = await contactModel.find(
-    { assigned_segment: segmentId, email: { $in: recipients.map(r => r.email) } },
+    { assigned_segment: segmentId, email: { $in: validRecipients.map(r => r.email.toLowerCase().trim()) } },
     { _id: 1 }
   ).lean();
 
   return {
     ids: docs.map(d => d._id as ObjectId),
-    stats: { total, uniqueValid: total, invalid: 0 }, // treat all as valid
+    stats: { total, uniqueValid: validRecipients.length, invalid },
   };
 };

@@ -34,7 +34,6 @@ const useCreateSubscription = () => {
         subscription: any;
         transaction: any;
       }> = await res.json();
-      console.log("Create Subscription API Response:", data);
 
       if (!data.status) {
         throw new Error(data.message);
@@ -48,6 +47,7 @@ const useCreateSubscription = () => {
         duration: 3000,
         isClosable: true,
       });
+      throw err;
     } finally {
       setLoading(false);
     }

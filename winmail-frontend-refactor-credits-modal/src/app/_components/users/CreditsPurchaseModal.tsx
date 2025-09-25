@@ -89,7 +89,6 @@ export const CreditsPurchaseModal = ({
               razorpay_signature: response.razorpay_signature,
               amount: res.order.amount,
             });
-            onClose();
           },
           prefill: {
             name: res.user.name,

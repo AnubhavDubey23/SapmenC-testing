@@ -14,10 +14,8 @@ const usePurchaseCredits = () => {
   const purchaseCredits = async (credits: number, authToken?: string) => {
     setLoading(true);
     try {
-      console.log('Attempting to purchase credits:', credits); //error check
-
       const token = authToken || authState.currentToken;
-      if (!token) {  //error check
+      if (!token) {
         throw new Error('Authentication token missing');
       }
 
@@ -28,16 +26,13 @@ const usePurchaseCredits = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount:credits*100,
+          amount: credits * 100, // Convert credits to paise
         }),
       });
-
-      console.log('Response status:', res.status);
 
       // Check for HTTP errors first
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        console.error('Server error details:', errorData);
         throw new Error(
           errorData.message || 
           `Server error: ${res.status} ${res.statusText}`
@@ -62,7 +57,7 @@ const usePurchaseCredits = () => {
         duration: 3000,
         isClosable: true,
       });
-      throw err;   //error check
+      throw err;
     } finally {
       setLoading(false);
     }

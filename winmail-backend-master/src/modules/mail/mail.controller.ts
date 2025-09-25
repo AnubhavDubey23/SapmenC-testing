@@ -64,8 +64,6 @@ export const trackOpenStatus = async (req: Request, res: Response) => {
   try {
     const { pixel_id, recipient_email, template_id, segment_id } = req.query;
 
-    console.log(`Email opened by: ${recipient_email}`);
-
     // find email log by pixel_id and update
     const email_log = await emailLogsModel.findOneAndUpdate(
       {
@@ -91,9 +89,7 @@ export const trackOpenStatus = async (req: Request, res: Response) => {
     res.end(pixel);
 
     if (!email_log) {
-      console.warn(
-        `No email log found for pixel_id: ${pixel_id}, recipient: ${recipient_email}`
-      );
+      logger.warn(`No email log found for pixel_id: ${pixel_id}, recipient: ${recipient_email}`);
     }
   } catch (err) {
     res.status(400).json(err);

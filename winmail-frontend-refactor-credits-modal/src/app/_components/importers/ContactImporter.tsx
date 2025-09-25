@@ -118,15 +118,12 @@ const ContactImporter = ({ onClose, setLoading }: Props) => {
         const cleaned = batch.filter((r) => r.name && validateEmail(r.email));
 
         const body = {
-          // segmentId is redundant if the API path contains it; harmless if kept
           segmentId: selectedsegmentstate.segmentId,
-          recipients: cleaned, // only {name,email}
+          recipients: cleaned,
         };
 
-        console.log('batch length', batch.length);
         const res = await updatesegment(body);
         if (res) {
-          console.log('res.recipents.length', res.recipients.length);
           dispatch(
             setActivesegment({
               segmentId: selectedsegmentstate.segmentId,

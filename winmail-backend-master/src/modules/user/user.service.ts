@@ -19,7 +19,7 @@ interface IUserService {
   incrementSegmentCount(userId: string): Promise<void>;
   decrementSegmentCount(userId: string): Promise<void>;
   incrementTemplateCount(userId: string): Promise<void>;
-  decrementSegmentCount(userId: string): Promise<void>;
+  decrementTemplateCount(userId: string): Promise<void>;
 }
 
 class UserService implements IUserService {
@@ -37,7 +37,7 @@ class UserService implements IUserService {
     try {
       return await userModel
         .findOne({
-          email,
+          email: email.toLowerCase().trim(),
           is_active: true,
           is_deleted: false,
         })
@@ -75,9 +75,13 @@ class UserService implements IUserService {
     try {
       const username = await generateUniqueUsername(body.name);
       const hashedPassword = encryptPassword(body.password);
+      
+      // Normalize email before creating user
+      const normalizedEmail = body.email.toLowerCase().trim();
+      
       return await UserRepository.createUser({
         name: body.name,
-        email: body.email,
+        email: normalizedEmail,
         password: hashedPassword,
         username: username,
         role: body.role,

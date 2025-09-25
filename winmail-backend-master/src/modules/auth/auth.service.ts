@@ -166,9 +166,9 @@ class AuthService implements IAuthService {
       // generate otp
       const otp = generateOtp();
       // send email to user
-      const user = await UserService.isUserExist(body.email)
+      const user = await UserService.isUserExist(body.email);
       if (!user) {
-        throw new Error("User not found");
+        throw new Error(UserError.USER_NOT_FOUND);
       }
       user.otp = otp;
       await user.save();
@@ -192,14 +192,15 @@ class AuthService implements IAuthService {
     body: ResetPasswordPayload
   ): Promise<{ message: string }> {
     try {
-      const user = await UserService.isUserExist(body.email)
+      const user = await UserService.isUserExist(body.email);
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error(UserError.USER_NOT_FOUND);
       }
 
       const encryptedPassword = encryptPassword(body.newPassword);
       user.password = encryptedPassword;
+      user.otp = ''; // Clear OTP after password reset
 
       await user.save();
 
@@ -217,9 +218,9 @@ class AuthService implements IAuthService {
 
   async verifyOTP(body: VerifyOTPPayload): Promise<{ message: string }> {
     try {
-      const user = await UserService.isUserExist(body.email)
+      const user = await UserService.isUserExist(body.email);
       if (!user) {
-        throw new Error('User not found');
+        throw new Error(UserError.USER_NOT_FOUND);
       }
 
       if (user.otp !== body.otp) {

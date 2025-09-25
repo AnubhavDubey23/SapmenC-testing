@@ -32,7 +32,7 @@ export default function EditorTopbar() {
     onClose: onCloseUpgradeModal,
   } = useDisclosure();
 
-  const { selectedTemplate } = useAppSelector((state) => state);
+  const selectedTemplate = useAppSelector((state) => state.selectedTemplate);
 
   const {
     loading: subscriptionLoading,

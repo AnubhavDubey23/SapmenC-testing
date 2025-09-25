@@ -186,8 +186,6 @@ class SegmentRepository implements ISegmentRepository {
         const updatedUser = await UserRepository.decrementCredits(userId as string, requiredCredits);
         if (!updatedUser) throw new Error('Failed to update user credits');
 
-
-        // optional: normalize other fields now
         const setFields: any = {
           updated_by: userId,
           ...(body.name ? { name: body.name } : {}),
@@ -197,30 +195,30 @@ class SegmentRepository implements ISegmentRepository {
 
         const segmentId: string | ObjectId = id;
 
-        // 1) upsert contacts & get their _ids
         const { ids, stats } = await ContactRepository.bulkUpsertByEmailsInsegment(
           body.recipients,
           segmentId,
           userId
         );
 
-        // 2) add them to segment.recipients (dedup at DB level)
+        // Log the import statistics
+        if (stats.invalid > 0) {
+          console.warn(`${stats.invalid} invalid contacts were skipped during import`);
+        }
+
         await SegmentModel.updateOne(
           { _id: segmentId },
           { 
-            $push: { recipients: { $each: ids } },  // <-- allows duplicates
+            $addToSet: { recipients: { $each: ids } },  // <-- prevents duplicates
             $set: setFields
           }
         );
 
-
-        // 3) return populated segment
         const updated = await SegmentModel.findById(segmentId).populate('recipients');
 
         return updated;
       }
 
-      // no recipients in payload -> simple update
       const segment = await SegmentModel.findByIdAndUpdate(
         id,
         { ...body, updated_by: userId },

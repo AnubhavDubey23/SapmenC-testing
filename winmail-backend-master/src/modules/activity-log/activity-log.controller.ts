@@ -4,7 +4,7 @@ import * as ActivityLogService from './activity-log.service';
 
 export const getActivity = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { id: userId } = req.user.id;
+    const { id: userId } = req.user;
     const activity = await ActivityLogService.getActivity(userId);
     res.status(200).json({
       status: true,

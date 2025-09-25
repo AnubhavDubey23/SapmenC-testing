@@ -56,15 +56,8 @@ export const isPlanExpired: (expiryDate: Date) => boolean = (
   expiryDate: Date
 ) => {
   const currentDate = new Date();
-
-  console.log(expiryDate)
-
   const currentTimestamp = Math.floor(currentDate.getTime() / 1000);
-  console.log(currentTimestamp)
-
   const expiryTimestamp = Math.floor(expiryDate.getTime() / 1000);
-  console.log(expiryTimestamp)
-
 
   return currentTimestamp > expiryTimestamp;
 };

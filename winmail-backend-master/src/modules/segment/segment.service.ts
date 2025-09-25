@@ -129,7 +129,7 @@ class SegmentService implements ISegmentService {
       await logActivity({
         user: userId as ObjectId,
         actionType: ActionType.UPDATE,
-        resourceType: ResourceType.TEMPLATE,
+        resourceType: ResourceType.SEGMENT,
         resourceId: segment._id as ObjectId,
         status: ActivityStatus.SUCCESS,
       });
@@ -145,7 +145,7 @@ class SegmentService implements ISegmentService {
       await logActivity({
         user: userId as ObjectId,
         actionType: ActionType.UPDATE,
-        resourceType: ResourceType.TEMPLATE,
+        resourceType: ResourceType.SEGMENT,
         status: ActivityStatus.FAILURE,
       });
 
@@ -175,7 +175,7 @@ class SegmentService implements ISegmentService {
       await logActivity({
         user: userId as ObjectId,
         actionType: ActionType.DELETE,
-        resourceType: ResourceType.TEMPLATE,
+        resourceType: ResourceType.SEGMENT,
         resourceId: segment._id as ObjectId,
         status: ActivityStatus.SUCCESS,
       });
@@ -191,7 +191,7 @@ class SegmentService implements ISegmentService {
       await logActivity({
         user: userId as ObjectId,
         actionType: ActionType.DELETE,
-        resourceType: ResourceType.TEMPLATE,
+        resourceType: ResourceType.SEGMENT,
         status: ActivityStatus.FAILURE,
       });
 

@@ -11,9 +11,6 @@ import { corsOptions } from './config/cors';
 import multer from 'multer';
 import { logger } from './classes/Logger';
 
-// // Cron Jobs
-// import './modules/email-job/email-job-scheduler';
-
 dotenv.config();
 
 const app: Express = express();
@@ -40,8 +37,6 @@ app.get('/', (_req: Request, res: Response) => {
     documentation: getBackendBaseUrl(false) + '/api/v1/docs',
   });
 });
-
-//handle 404
 
 app.use('*', (_req: Request, res: Response) => {
   res.status(404).json({

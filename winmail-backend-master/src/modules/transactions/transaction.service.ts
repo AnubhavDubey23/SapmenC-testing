@@ -117,14 +117,7 @@ export const TransactionService = {
         throw new Error(`Invalid amount passed: ${amount}`);
       }
 
-      console.log('Creating Razorpay order with:', {
-        amount,
-        user: user.email,
-      });
-      //error check
-
       const order = await razorpay.orders.create({
-        // amount: amount,
         amount,
         currency: 'INR',
         payment_capture: true,

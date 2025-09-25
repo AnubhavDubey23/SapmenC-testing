@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store';
 import { useTranslation } from 'react-i18next';
 
 const TemplateHeaderLeft = () => {
-  const { selectedTemplate } = useAppSelector((state) => state);
+  const selectedTemplate = useAppSelector((state) => state.selectedTemplate);
   const { t } = useTranslation();
   return (
     <Flex gap={'5'} alignItems={'center'}>

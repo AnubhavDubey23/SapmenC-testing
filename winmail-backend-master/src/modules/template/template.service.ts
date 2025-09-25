@@ -138,7 +138,7 @@ class TemplateService implements ITemplateService {
         user: userId as ObjectId,
         actionType: ActionType.UPDATE,
         resourceType: ResourceType.TEMPLATE,
-        status: ActivityStatus.SUCCESS,
+        status: ActivityStatus.FAILURE,
       });
 
       return err;
@@ -159,8 +159,9 @@ class TemplateService implements ITemplateService {
 
       await logActivity({
         user: userId as ObjectId,
-        actionType: ActionType.UPDATE,
+        actionType: ActionType.DELETE,
         resourceType: ResourceType.TEMPLATE,
+        resourceId: template._id as ObjectId,
         status: ActivityStatus.SUCCESS,
       });
 
@@ -171,6 +172,14 @@ class TemplateService implements ITemplateService {
       logger.error(`Failed to delete template with id-${id}: ${err.message}`, {
         origin: 'services/template',
       });
+
+      await logActivity({
+        user: userId as ObjectId,
+        actionType: ActionType.DELETE,
+        resourceType: ResourceType.TEMPLATE,
+        status: ActivityStatus.FAILURE,
+      });
+
       return err;
     }
   };

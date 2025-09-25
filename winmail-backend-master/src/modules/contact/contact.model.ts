@@ -16,6 +16,8 @@ const ContactSchema: Schema<IContact> = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      lowercase: true,
+      trim: true,
     },
     created_by: {
       type: Schema.Types.ObjectId,

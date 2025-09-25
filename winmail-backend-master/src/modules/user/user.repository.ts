@@ -45,6 +45,9 @@ class UserRepository implements IUserRepository {
 
   async createUser(body: any): Promise<IUser> {
     try {
+      // Normalize email
+      body.email = body.email.toLowerCase().trim();
+      
       const newUser = await userModel.create(body);
 
       const otp = generateOtp();
@@ -120,7 +123,7 @@ class UserRepository implements IUserRepository {
   async findUserByEmail(email: string): Promise<IUser | null> {
     try {
       const user = await userModel.findOne({
-        email,
+        email: email.toLowerCase().trim(),
       });
       return user;
     } catch (err) {

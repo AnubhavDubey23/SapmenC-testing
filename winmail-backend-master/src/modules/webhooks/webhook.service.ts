@@ -297,7 +297,7 @@ class WebhookService implements IWebhookService {
   ): Promise<void> {
     // Mark subscription as halted but don't downgrade user's plan
     try {
-      const userId = subscription.entity.notes?.userId;
+      const userId = subscription.entity.notes?.user_id;
       if (!userId) {
         logger.error(
           `No userId found in subscription notes: ${subscription.entity.id}`,

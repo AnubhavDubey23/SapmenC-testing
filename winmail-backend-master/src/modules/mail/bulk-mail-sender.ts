@@ -98,7 +98,6 @@ export const sendBatchEmails = async (
         }
         const info: SMTPTransport.SentMessageInfo =
           await transporter.sendMail(mailOptions);
-        console.log('Email sent: ', info);
         if (info.accepted.length > 0) {
           await emailLogsModel.findByIdAndUpdate(email_log._id, {
             bounce: false,
@@ -109,12 +108,11 @@ export const sendBatchEmails = async (
             bounce: true,
           });
         }
-        return console.log(`Email sent to ${email}: `, info.response);
       } catch (error) {
         await emailLogsModel.findByIdAndUpdate(email_log._id, {
           bounce: true,
         });
-        return console.error(`Error sending to ${email}: `, error);
+        console.error(`Error sending to ${email}: `, error);
       }
     });
 
