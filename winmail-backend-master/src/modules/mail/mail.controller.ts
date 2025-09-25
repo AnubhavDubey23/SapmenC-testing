@@ -4,6 +4,7 @@ import { AuthenticatedRequest } from '../../middlewares/auth.middleware';
 import { TMarketingMailDTO } from './mail.dto';
 import emailLogsModel from '../email-logs/email-logs.model';
 import EmailSenderService from '../email-sender/email-sender.service';
+import { logger } from '../../classes/Logger';
 
 export const sendMarketingMail = async (
   req: AuthenticatedRequest,

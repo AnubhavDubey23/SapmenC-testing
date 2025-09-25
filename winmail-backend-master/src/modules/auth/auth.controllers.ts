@@ -73,23 +73,26 @@ class AuthController implements IAuthController {
     } catch (err: any) {
       switch (err.message) {
         case UserError.VERIFY_EMAIL_ERROR:
-          return res.status(403).json({
+          res.status(403).json({
             status: false,
             message: 'Please verify your email',
             data: null,
           });
+          return;
         case UserError.USER_NOT_FOUND:
-          return res.status(404).json({
+          res.status(404).json({
             status: false,
             message: 'User not found',
             data: null,
           });
+          return;
         default:
-          return res.status(500).json({
+          res.status(500).json({
             status: false,
             message: err.message,
             data: null,
           });
+          return;
       }
     }
   }
