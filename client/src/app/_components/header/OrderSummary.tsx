@@ -10,7 +10,6 @@ import useRazorpay from '@/hooks/razorpay/useRazorpay';
 import { RazorpayPaymentOpts, RazorpayPaymentResponse, RazorpaySubscriptionSuccessResponse } from '@/types/razorpay.types';
 import useVerifyPayment from '@/hooks/plans/useVerifyPayment';
 import { useAppSelector } from '@/store';
-import { usePayment } from '@/contexts/PaymentContext';
 
 interface OrderSummaryProps {
   plan: any; // contains plan details { name, item: { amount } }
@@ -26,7 +25,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
   const { createSubscription , loading: createLoading} = useCreateSubscription();
   const { initializePayment,isLoaded} = useRazorpay();
   const { verifyPayment, loading: verifyPaymentLoading } = useVerifyPayment();
-  const { openPaymentModal, closePaymentModal } = usePayment();
   const toast = useToast();
   const authState = useAppSelector((state) => state.auth);
 
@@ -65,7 +63,10 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
         name: 'SapMen C Private Limited',
         description: `${plan.name} Plan Subscription`,
         modal: {
-          ondismiss: () => closePaymentModal(),
+          // Ensure we don't reopen/keep any background modal on dismiss
+          ondismiss: () => {
+            // no-op: background UI remains closed
+          },
           escape: true,
           backdropclose: true,
           animation: true,
@@ -101,7 +102,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
               duration: 5000,
             });
           } finally {
-            closePaymentModal();
+            // no background modal to close here
           }
         },
         prefill: {
@@ -117,8 +118,8 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
         },
       };
 
+      // Close the cart modal (and any parent Chakra modals) BEFORE opening Razorpay
       onClose();
-      openPaymentModal();
 
       await new Promise(resolve => setTimeout(resolve, 300));
       document.body.style.overflow = 'auto';
@@ -139,7 +140,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
           duration: 5000,
           isClosable: true,
         });
-        closePaymentModal();
         return;
       }
       
@@ -152,7 +152,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
         duration: 5000,
         isClosable: true,
       });
-      closePaymentModal();
     }
   };
 

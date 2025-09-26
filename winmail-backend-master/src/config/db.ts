@@ -9,6 +9,8 @@ export interface DBConfig {
   explicitClose?: boolean;
 }
 
+
+
 export const connectDB = async ({
   explicitClose = false,
 }: DBConfig): Promise<void | typeof mongoose.connection> => {

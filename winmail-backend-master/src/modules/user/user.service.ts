@@ -1,6 +1,6 @@
 import { CreateUserDTO } from './user.dto';
 import userModel, { IUser } from './user.model';
-import UserRepository from '../user/user.repository';
+import UserRepository from './user.repository';
 import { encryptPassword, generateUniqueUsername } from '../../utils/helper';
 import { logger } from '../../classes/Logger';
 import { decryptPassword } from '../../utils/helper';
