@@ -23,7 +23,16 @@ export function Cart({ plan, isOpen, onClose }: CartProps) {
     planFeaturesMap.get(plan.item.name.toLowerCase())?.length || 0;
 
   return (
-    <Modal onClose={onClose} isOpen={isOpen} size="full">
+    <Modal
+      onClose={onClose}
+      isOpen={isOpen}
+      size="full"
+      trapFocus={false}
+      autoFocus={false}
+      returnFocusOnClose={false}
+      blockScrollOnMount={false}
+      closeOnOverlayClick={true}
+    >
       <ModalOverlay />
       <ModalContent margin={0} rounded="none" height="100vh" bg="gray.50">
         <ModalHeader

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   VStack, Text, Button, Flex, Image, Divider, useToast
 } from '@chakra-ui/react';
 import useCreateSubscription from '@/hooks/plans/useCreateSubscription';
-import useCredits from '@/hooks/credits/useCredits';
 import useRazorpay from '@/hooks/razorpay/useRazorpay';
 import { RazorpayPaymentOpts, RazorpayPaymentResponse, RazorpaySubscriptionSuccessResponse } from '@/types/razorpay.types';
 import useVerifyPayment from '@/hooks/plans/useVerifyPayment';
@@ -62,18 +61,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
         subscription_id: res.subscription.id,
         name: 'SapMen C Private Limited',
         description: `${plan.name} Plan Subscription`,
-        modal: {
-          // Ensure we don't reopen/keep any background modal on dismiss
-          ondismiss: () => {
-            // no-op: background UI remains closed
-          },
-          escape: true,
-          backdropclose: true,
-          animation: true,
-        },
-        theme: {
-          color: '#6D66C8'
-        },
         handler: async function (response: RazorpayPaymentResponse) {
           try {
             if ('razorpay_subscription_id' in response) {
@@ -121,8 +108,13 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ plan, onSuccess, onClose })
       // Close the cart modal (and any parent Chakra modals) BEFORE opening Razorpay
       onClose();
 
-      await new Promise(resolve => setTimeout(resolve, 300));
-      document.body.style.overflow = 'auto';
+      // Proactively release any lingering focus from Chakra's focus-lock
+      if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
+        try { document.activeElement.blur(); } catch { /* ignore */ }
+      }
+
+      // Give a moment for modal unmount and focus-lock cleanup (mirror credits flow timing)
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       try {
         const rzp = initializePayment(opts);
