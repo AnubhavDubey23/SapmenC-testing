@@ -13,7 +13,7 @@ echo "Stop existing container if it exists"
 sudo docker stop mailerone-backend || true
 sudo docker rm mailerone-backend || true
 
-sudo docker run -d -p 5002:5002 --name mailerone-backend --restart unless-stopped $IMAGE_PATH
+sudo docker run -d -p 5003:5003 --name mailerone-backend --restart unless-stopped $IMAGE_PATH
 
 echo "Cleaning up dangling images..."
 sudo docker prune -f

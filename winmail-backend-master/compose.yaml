@@ -11,7 +11,7 @@ services:
         required: true
 
     ports:
-      - 5002:5002
+      - 5003:5003
 
   db:
     container_name: mailerone-db
@@ -49,7 +49,7 @@ services:
 
     command:
       - 'http'
-      - 'api:5002'
+      - 'api:5003'
       - '--url'
       - 'https://electric-supposedly-honeybee.ngrok-free.app'
 

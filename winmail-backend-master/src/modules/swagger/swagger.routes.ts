@@ -24,8 +24,8 @@ router.get(
         },
         basePath: '/',
         consumes: ['application/json'],
-        host: 'http://localhost:5002/api/v1',
-        schemes: ['http:localhost:5002/api/v1', 'https:localhost:5002'],
+        host: 'http://localhost:5003/api/v1',
+        schemes: ['http:localhost:5003/api/v1', 'https:localhost:5003'],
         produces: ['application/json'],
         tags: [
           {

@@ -7,6 +7,7 @@ import { EPlanIds } from '../../data/PLANS_DATA';
 import {
   RazorpayPaymentVerificationBody,
   RazorpaySubscriptionVerificationBody,
+  RazorpayHybridVerificationBody,
 } from './payment.dto';
 import { TransactionService } from '../transactions/transaction.service';
 
@@ -168,6 +169,91 @@ export const verifyPurchaseCredits = async (
     return res.status(500).json({
       status: false,
       message: err.message || 'Failed to verify payment',
+      data: null,
+    });
+  }
+};
+
+// Hybrid Subscription - Creates both Order and Subscription for enhanced UI
+export const createHybridSubscription = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    const { id: userId } = req.user;
+    const { planId } = req.params;
+
+    const user = await userModel.findById(userId).populate('role');
+    if (!user) {
+      throw new Error('User not found!');
+    }
+
+    // Handle free plan
+    if (planId === EPlanIds.FREE) {
+      await PlanService.startFreePlan(userId);
+      return res.status(200).json({
+        status: true,
+        message: 'Free plan started!',
+        data: { user },
+      });
+    }
+
+    // Create hybrid subscription (both order and subscription)
+    const { subscription, order, transaction } =
+      await TransactionService.createHybridSubscription(userId, user, planId);
+
+    return res.status(200).json({
+      status: true,
+      message: 'Hybrid Subscription Created Successfully',
+      data: { user, subscription, order, transaction },
+    });
+  } catch (err: any) {
+    return res.status(400).json({
+      status: false,
+      message: err.message || 'Hybrid Subscription Creation Failed',
+      data: err,
+    });
+  }
+};
+
+// Verify Hybrid Payment - Verifies order payment and activates subscription
+export const verifyHybridSubscription = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    const { id: userId } = req.user;
+    const {
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_signature,
+      subscription_id,
+      plan_id,
+    } = req.body as RazorpayHybridVerificationBody;
+
+    // Verify the hybrid payment
+    const result = await TransactionService.verifyHybridPayment(
+      userId,
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_signature,
+      subscription_id,
+      plan_id
+    );
+
+    if (!result.verified) {
+      throw new Error('Could not verify hybrid payment');
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: 'Hybrid payment verified successfully and subscription activated',
+      data: result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({
+      status: false,
+      message: err.message || 'Hybrid payment verification failed',
       data: null,
     });
   }

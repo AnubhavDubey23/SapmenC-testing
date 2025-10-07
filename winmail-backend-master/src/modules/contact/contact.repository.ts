@@ -55,13 +55,25 @@ export const createContact = async (
   userId: string | ObjectId
 ): Promise<IContact> => {
   try {
-    // only create the contact document here
+    // Create the contact document
     const newContact: Document<unknown, {}, IContact> &
       IContact &
       Required<{ _id: unknown }> = await contactModel.create({
       ...body,
       created_by: userId,
     });
+
+    // Add contact to segment's recipients array
+    if (body.assigned_segment) {
+      const SegmentModel = require('../segment/segment.model').default;
+      await SegmentModel.findByIdAndUpdate(
+        body.assigned_segment,
+        { 
+          $addToSet: { recipients: newContact._id },
+          $set: { updated_by: userId }
+        }
+      );
+    }
 
     // increment user stats (kept as-is)
     const user = await userModel.findById(userId);
@@ -134,6 +146,24 @@ export const updateContact = async (
 
 export const deleteContact = async (id: string): Promise<IContact> => {
   try {
+    // Get contact info before deletion
+    const contact = await contactModel.findById(id);
+    if (!contact) {
+      throw new Error('Contact not found');
+    }
+
+    // Remove contact from segment's recipients array
+    if (contact.assigned_segment) {
+      const SegmentModel = require('../segment/segment.model').default;
+      await SegmentModel.findByIdAndUpdate(
+        contact.assigned_segment,
+        { 
+          $pull: { recipients: contact._id }
+        }
+      );
+    }
+
+    // Delete the contact
     const deletedContact = await contactModel.findByIdAndDelete(id);
     return deletedContact as IContact;
   } catch (err: any) {
@@ -197,9 +227,11 @@ export const bulkUpsertByEmailsInsegment = async (
     updateOne: {
       filter: { email, assigned_segment: segmentId },
       update: {
+        $set: {
+          name,
+        },
         $setOnInsert: {
           email: email.toLowerCase().trim(),
-          name,
           assigned_segment: segmentId,
           created_by: userId,
         },

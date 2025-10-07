@@ -32,7 +32,7 @@ MailerOne Backend is a Node.js application that provides APIs for managing users
 
    ```plaintext
    APP_NAME=WinMail API Suite
-   PORT=5002
+   PORT=5003
    JWT_SECRET=your_jwt_secret
    MONGODB_URI=your_mongodb_uri
    SMTP_EMAIL=your_smtp_email
@@ -54,7 +54,7 @@ MailerOne Backend is a Node.js application that provides APIs for managing users
 
 ## Usage
 
-- The application will be running on `http://localhost:5002`.
+- The application will be running on `http://localhost:5003`.
 - Use a tool like Postman to interact with the API endpoints.
 
 ## API Endpoints

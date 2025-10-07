@@ -162,6 +162,13 @@ class SegmentRepository implements ISegmentRepository {
     try {
       // If recipients provided, handle as a bulk upsert + single $addToSet
       if (body.recipients) {
+        const user = await UserRepository.findUserById(userId as string);
+        if (!user) throw new Error('User not found');
+        if (user.credits < CREDITS_PER_ACTION) {
+          throw new Error(
+            `Insufficient credits. Minimum required: ${CREDITS_PER_ACTION}, Available: ${user.credits}`
+          );
+        }
         if (body.recipients.length === 0) {
           const seg = await SegmentModel.findByIdAndUpdate(
             id,
@@ -172,10 +179,6 @@ class SegmentRepository implements ISegmentRepository {
         }
 
         const requiredCredits = body.recipients.length * CREDITS_PER_ACTION;
-
-        // Fetch user and check credits
-        const user = await UserRepository.findUserById(userId as string);
-        if (!user) throw new Error('User not found');
         if (user.credits < requiredCredits) {
           throw new Error(
             `Insufficient credits. Required: ${requiredCredits}, Available: ${user.credits}`

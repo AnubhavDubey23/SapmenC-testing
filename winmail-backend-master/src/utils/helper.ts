@@ -34,7 +34,7 @@ export const getBackendBaseUrl: (dev?: boolean) => string = (
   dev = true
 ): string => {
   if (dev) {
-    return 'http://localhost:5002';
+    return 'http://localhost:5003';
   } else {
     return 'https://api.mailerone.in';
   }
