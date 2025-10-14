@@ -1,0 +1,62 @@
+/* Payment page specific styles to ensure clean Razorpay integration */
+
+/* Reset any potential interference */
+* {
+  pointer-events: auto !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+/* Ensure body is clean and minimal */
+body {
+  overflow: auto !important;
+  pointer-events: auto !important;
+  background-color: #ffffff !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide any potential background elements */
+#__next > *:not([data-payment-page]) {
+  display: none !important;
+}
+
+/* When Razorpay iframe is present, hide everything else */
+body:has(iframe[name='razorpay-checkout']) [data-payment-page] {
+  display: none !important;
+}
+
+/* Ensure clean background when Razorpay is open */
+body:has(iframe[name='razorpay-checkout']) {
+  background: #ffffff !important;
+}
+
+/* Remove any focus management attributes */
+[data-focus-lock-disabled],
+[data-focus-lock],
+[data-focus-guard],
+[data-focus-trap],
+[inert] {
+  pointer-events: auto !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+/* Ensure Razorpay iframe is always accessible */
+iframe[name='razorpay-checkout'] {
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+  position: fixed !important;
+}
+
+/* Force all inputs to be accessible */
+input,
+textarea,
+select {
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  cursor: text !important;
+}

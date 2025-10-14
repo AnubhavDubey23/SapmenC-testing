@@ -1,0 +1,22 @@
+{
+  "Select_Language": "Sprache auswählen",
+  "Templates": "Vorlagen",
+  "Segments": "Segmente",
+  "Profile": "Profil",
+  "Settings": "Einstellungen",
+  "Language": "Sprache",
+  "Subscription": "Abonnement",
+  "Logout": "Ausloggen",
+  "No_Templates_Found": "Keine Vorlagen gefunden",
+  "Rename": "Umbenennen",
+  "Duplicate": "Duplizieren",
+  "Delete": "Löschen",
+  "Sent": "Gesendet",
+  "Draft": "Entwurf",
+  "Edit": "Bearbeiten",
+  "Upload_File": "Datei hochladen",
+  "Send_Mail": "E-Mail senden",
+  "Send Mail": "E-Mail senden",
+  "Login": "Anmeldung",
+  "Subject": "Betreff"
+}
