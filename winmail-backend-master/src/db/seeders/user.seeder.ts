@@ -1,7 +1,7 @@
 import { Connection, ObjectId } from 'mongoose';
 import { connectDB } from '../../config/db';
 import * as RoleRepository from '../../modules/role/role.repository';
-import * as UserRepository from '../../modules/user/user.repository';
+import UserRepository from '../../modules/user/user.repository';
 import { encryptPassword } from '../../utils/helper';
 
 export type TUser = {

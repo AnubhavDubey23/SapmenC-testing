@@ -11,11 +11,11 @@
     "postbuild": "copyfiles -u 1 src/email-templates/* dist/",
     "prod": "node dist/index.js",
     "format": "npx prettier . --write",
-    "db-reset": "ts-node src/db/reset-db.ts",
+    "db-reset": "ts-node src/db/scripts/reset-db.ts",
     "db:migrate-create": "migrate-mongo create",
     "db:migrate": "migrate-mongo up",
     "db:migrate-undo": "migrate-mongo down",
-    "db:reset": "node dist/db/reset-db.js",
+    "db:reset": "node dist/db/scripts/reset-db.js",
     "ngrok": "ngrok http 127.0.0.1:5003 --url https://electric-supposedly-honeybee.ngrok-free.app"
   },
   "keywords": [],

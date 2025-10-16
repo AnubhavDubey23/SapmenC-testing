@@ -1,6 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Chart as ChartJS, Tooltip, ArcElement, ChartData, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  Tooltip,
+  ArcElement,
+  ChartData,
+  Legend,
+} from 'chart.js';
 import { ISelectedTemplateState } from '@/store/features/selected-template/selected-template-slice';
 
 ChartJS.register([ArcElement, Tooltip, Legend]);
@@ -9,7 +15,7 @@ type PieChartStatsProps = {
   template: Partial<ISelectedTemplateState>;
 };
 
-export default function PieChartStats({ template }: PieChartStatsProps) {
+const PieChartStats: React.FC<PieChartStatsProps> = ({ template }) => {
   const stats = (template.stats || {}) as any;
   const totalEmails = Number(stats.totalEmails || 0);
   const receivedEmails = Number(
@@ -41,17 +47,13 @@ export default function PieChartStats({ template }: PieChartStatsProps) {
     ],
   };
 
-  const DoughnutAny = dynamic(
-    () =>
-      import('react-chartjs-2').then((mod: any) => {
-        const C = mod.Doughnut || mod.Chart;
-        return (props: any) => <C type="doughnut" {...props} />;
-      }),
+  const DoughnutChart = dynamic(
+    () => import('react-chartjs-2').then((mod: any) => mod.Doughnut || mod.Chart),
     { ssr: false }
-  );
+  ) as unknown as React.ComponentType<any>;
 
   return (
-    <DoughnutAny
+    <DoughnutChart
       data={data}
       options={{
         plugins: {
@@ -79,4 +81,6 @@ export default function PieChartStats({ template }: PieChartStatsProps) {
       }}
     />
   );
-}
+};
+
+export default PieChartStats;

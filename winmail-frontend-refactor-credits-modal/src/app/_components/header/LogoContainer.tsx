@@ -1,7 +1,7 @@
 import { HStack, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
-import LogoImage from '../../../../src/assets/images/logo.svg';
+import LogoImage from '@/assets/images/logo.svg';
 
 const LogoContainer = () => {
   return (

@@ -18,7 +18,7 @@ import animationData from '../../../../public/login.json';
 import LogoContainer from './VerticalLogoContainer';
 import SapmenC from '../../../../public/SapmenC.png';
 import Image from 'next/image';
-import { useTranslation } from '../../../../node_modules/react-i18next';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 

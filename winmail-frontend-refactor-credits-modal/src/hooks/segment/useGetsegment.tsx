@@ -63,7 +63,12 @@ const useGetsegment = () => {
       } finally {
         setLoading(false);
       }
-    }, [authState.currentToken, selectedsegmentstate.segmentId, toast, dispatch]);
+    }, [
+      authState.currentToken,
+      selectedsegmentstate.segmentId,
+      toast,
+      dispatch,
+    ]);
 
   useEffect(() => {
     if (authState.userId && selectedsegmentstate.segmentId) {

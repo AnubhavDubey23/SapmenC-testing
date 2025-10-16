@@ -56,7 +56,7 @@ const MainContent = () => {
     if (selectedTab === 0 && templates.length === 0) {
       return (
         <NoModule
-          image_src={CreateTemplateImage.src}
+          image_src={CreateTemplateImage}
           btn_text="Create Template"
           btn_icon={<MdAdd />}
           module="template"
@@ -69,7 +69,7 @@ const MainContent = () => {
     if (selectedTab === 1 && segments.length === 0) {
       return (
         <NoModule
-          image_src={CreatesegmentImage.src}
+          image_src={CreatesegmentImage}
           btn_text="Create Segment"
           btn_icon={<MdAdd />}
           module="segment"

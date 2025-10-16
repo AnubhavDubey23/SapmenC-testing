@@ -1,0 +1,453 @@
+   ▲ Next.js 15.5.2
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 64s
+   Linting and checking validity of types ...
+
+./src/app/_components/auth/ForgotPassword.tsx
+180:24  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/client-nodemailer-config/SMTPPasswordModal.tsx
+64:7  Warning: Replace `'Enter·a·name·for·the·app·you\'ll·be·using·the·password·with'` with `"Enter·a·name·for·the·app·you'll·be·using·the·password·with"`  prettier/prettier
+
+./src/app/_components/constants/PLAN_DATA.ts
+34:7  Warning: Strings must use singlequote.  quotes
+49:7  Warning: Strings must use singlequote.  quotes
+69:7  Warning: Strings must use singlequote.  quotes
+77:12  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/documents/blocks/EmailLayout/EmailLayoutEditor.tsx
+16:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+17:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+18:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+19:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+20:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+21:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+22:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+23:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+24:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+25:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+26:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+27:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+28:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+29:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+30:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+31:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+32:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+33:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+
+./src/app/_components/documents/blocks/helpers/block-wrappers/TuneMenu.tsx
+45:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+46:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+47:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+48:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+49:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+50:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+51:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+52:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+53:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+54:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+55:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+56:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+57:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+58:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+59:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+60:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+61:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+62:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+63:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+64:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+65:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+66:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+67:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+68:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+69:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+70:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+71:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+72:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+73:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+74:1  Warning: Expected indentation of 16 spaces but found 18.  indent
+75:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+76:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+77:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+78:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+79:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+80:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+81:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+118:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+119:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+120:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+121:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+122:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+123:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+124:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+125:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+126:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+127:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+128:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+129:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+130:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+131:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+132:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+133:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+134:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+135:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+136:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+137:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+138:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+139:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+140:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+141:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+142:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+143:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+144:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+145:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+146:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+147:1  Warning: Expected indentation of 16 spaces but found 18.  indent
+148:1  Warning: Expected indentation of 14 spaces but found 16.  indent
+149:1  Warning: Expected indentation of 12 spaces but found 14.  indent
+150:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+151:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+152:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+153:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+154:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+
+./src/app/_components/documents/editor/core.tsx
+88:11  Warning: Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+
+./src/app/_components/header/EnterprisePlan.tsx
+142:16  Warning: Replace `'Let\'s·Talk!'` with `"Let's·Talk!"`  prettier/prettier
+
+./src/app/_components/header/TabsNavigator.tsx
+57:6  Warning: React Hook useEffect has a missing dependency: 'handleTabChange'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/_components/header/UserProfileIconContainer.tsx
+60:6  Warning: React Hook useMemo has a missing dependency: 'handleCloseModal'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+120:5  Warning: React Hook useMemo has a missing dependency: 'onClose'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/_components/importers/AttachmentImporter.tsx
+49:14  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/importers/ContactImporter.tsx
+49:9  Warning: The 'processFile' function makes the dependencies of useCallback Hook (at line 91) change on every render. Move it inside the useCallback callback. Alternatively, wrap the definition of 'processFile' in its own useCallback() Hook.  react-hooks/exhaustive-deps
+208:17  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/importers/FileImporter.tsx
+29:9  Warning: The 'processFile' function makes the dependencies of useCallback Hook (at line 71) change on every render. Move it inside the useCallback callback. Alternatively, wrap the definition of 'processFile' in its own useCallback() Hook.  react-hooks/exhaustive-deps
+161:17  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/search/SearchBar.tsx
+78:20  Warning: Strings must use singlequote.  quotes
+109:20  Warning: Strings must use singlequote.  quotes
+154:18  Warning: Strings must use singlequote.  quotes
+190:16  Warning: Strings must use singlequote.  quotes
+
+./src/app/_components/template-editor/EmailDetailsPanel.tsx
+71:6  Warning: React Hook useEffect has missing dependencies: 'getUser' and 'toast'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/_components/template-editor/TemplateEditorApp.tsx
+21:6  Warning: React Hook useEffect has a missing dependency: 'selectedTemplate'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/_components/template-editor/TemplatePanel.tsx
+27:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+28:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+29:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+30:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+31:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+32:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+33:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+34:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+35:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+36:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+37:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+38:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+39:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+40:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+41:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+42:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+
+./src/app/_components/template-editor/editor-topbar/EditorTopbar.tsx
+56:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+57:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+58:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+59:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+60:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+61:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+70:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+71:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+72:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+73:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+74:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+75:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+76:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+77:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+107:6  Warning: React Hook useEffect has a missing dependency: 'getUserPlanDetails'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/_components/template-editor/input-panels/helpers/inputs/ColorInput/BaseColorInput.tsx
+85:29  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/_components/template-editor/input-panels/helpers/style-inputs/SingleStylePropertyPanel.tsx
+28:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+29:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+30:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+31:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+32:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+33:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+34:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+35:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+36:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+37:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+38:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+39:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+40:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+41:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+42:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+43:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+44:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+45:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+46:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+47:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+48:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+49:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+50:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+51:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+52:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+53:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+54:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+55:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+56:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+57:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+58:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+59:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+60:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+61:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+62:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+63:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+64:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+65:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+66:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+67:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+68:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+69:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+70:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+71:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+72:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+73:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+74:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+75:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+76:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+77:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+78:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+79:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+80:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+81:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+82:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+83:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+84:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+85:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+86:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+87:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+88:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+89:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+90:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+91:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+92:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+93:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+94:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+95:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+96:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+97:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+98:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+99:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+100:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+101:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+102:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+103:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+104:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+105:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+
+./src/app/_components/template-editor/inspector-drawer/ConfigurationPanel.tsx
+52:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+53:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+54:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+55:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+56:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+57:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+58:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+59:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+60:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+61:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+62:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+63:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+64:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+65:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+66:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+67:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+68:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+69:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+70:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+71:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+72:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+73:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+74:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+75:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+76:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+77:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+78:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+79:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+80:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+81:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+82:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+83:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+84:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+85:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+86:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+87:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+88:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+89:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+90:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+91:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+92:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+93:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+94:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+95:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+96:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+97:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+98:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+99:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+100:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+101:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+102:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+103:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+104:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+105:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+106:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+107:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+108:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+109:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+110:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+111:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+112:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+113:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+114:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+115:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+116:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+117:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+118:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+119:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+120:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+121:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+122:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+123:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+124:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+125:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+126:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+127:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+128:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+129:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+130:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+131:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+132:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+133:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+134:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+135:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+136:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+137:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+138:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+139:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+140:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+141:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+
+./src/app/_components/template-editor/panels/HighlightedCodePanel.tsx
+17:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+18:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+19:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+20:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+21:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+22:1  Warning: Expected indentation of 6 spaces but found 8.  indent
+
+./src/app/_components/validations/signup-validations.ts
+13:14  Warning: Replace `'Password·doesn\'t·match'` with `"Password·doesn't·match"`  prettier/prettier
+
+./src/app/payment/page.tsx
+74:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+75:1  Warning: Expected indentation of 10 spaces but found 12.  indent
+76:1  Warning: Expected indentation of 8 spaces but found 10.  indent
+191:11  Warning: Unexpected console statement.  no-console
+272:6  Warning: React Hook useEffect has missing dependencies: 'authToken' and 'verifyHybridPayment'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/payment-verify/page.tsx
+87:11  Warning: Unexpected console statement.  no-console
+
+./src/hooks/contact/useContacts.tsx
+17:9  Warning: The 'getAllContacts' function makes the dependencies of useEffect Hook (at line 55) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of 'getAllContacts' in its own useCallback() Hook.  react-hooks/exhaustive-deps
+
+./src/hooks/razorpay/useRazorpay.tsx
+101:7  Warning: Unexpected console statement.  no-console
+182:15  Warning: Unexpected console statement.  no-console
+
+./src/hooks/segment/useDeletesegment.tsx
+29:25  Warning: Strings must use singlequote.  quotes
+
+./src/hooks/template/useGetTemplate.tsx
+57:6  Warning: React Hook useEffect has a missing dependency: 'getTemplate'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/utils/account-history.ts
+11:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+12:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+13:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+14:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+15:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+16:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+17:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+18:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+19:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+20:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+21:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+22:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+23:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+24:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+25:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+29:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+30:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+31:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+32:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+33:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+34:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+35:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+36:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+37:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+38:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+39:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+40:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+41:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+42:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+43:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+44:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+45:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+46:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+47:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+48:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+49:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+50:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+51:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+52:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+53:1  Warning: Expected indentation of 2 spaces but found 4.  indent
+54:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+55:1  Warning: Expected indentation of 4 spaces but found 6.  indent
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./src/app/_components/templates/drawer/PieChartStats.tsx:58:7
+Type error: Type '{ data: ChartData<"doughnut", any[], string>; options: { plugins: { legend: { display: boolean; title: { display: boolean; text: string; font: { size: number; }; }; position: string; align: string; labels: { ...; }; }; }; }; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'data' does not exist on type 'IntrinsicAttributes'.
+
+[0m [90m 56 |[39m   [36mreturn[39m (
+ [90m 57 |[39m     [33m<[39m[33mDoughnut[39m
+[31m[1m>[22m[39m[90m 58 |[39m       data[33m=[39m{data}
+ [90m    |[39m       [31m[1m^[22m[39m
+ [90m 59 |[39m       options[33m=[39m{{
+ [90m 60 |[39m         plugins[33m:[39m {
+ [90m 61 |[39m           legend[33m:[39m {[0m
+Next.js build worker exited with code: 1 and signal: null

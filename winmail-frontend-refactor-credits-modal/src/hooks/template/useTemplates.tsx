@@ -63,7 +63,15 @@ const useTemplates = () => {
     } finally {
       setLoading(false);
     }
-  }, [authState.currentToken, dispatch, logout, searchBarState.query, searchBarState.module, templatesState.templates, toast]);
+  }, [
+    authState.currentToken,
+    dispatch,
+    logout,
+    searchBarState.query,
+    searchBarState.module,
+    templatesState.templates,
+    toast,
+  ]);
 
   useEffect(() => {
     if (authState.authState && templatesState.templates.length === 0) {
