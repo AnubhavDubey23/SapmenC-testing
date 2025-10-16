@@ -35,7 +35,13 @@ export function AvatarSection({
       />
       <HStack spacing={4} align="center">
         {profilePicture ? (
-          <Avatar size="xl" src={profilePicture} />
+          <Avatar 
+            size="xl" 
+            src={profilePicture}
+            onError={() => {
+              console.warn('Avatar image failed to load:', profilePicture);
+            }}
+          />
         ) : (
           <FaUser size={50} />
         )}
