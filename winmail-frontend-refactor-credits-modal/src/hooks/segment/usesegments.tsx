@@ -65,7 +65,14 @@ const useSegments = (): {
     } finally {
       setLoading(false);
     }
-  }, [authState.currentToken, dispatch, logout, searchBarState.query, searchBarState.module, toast]);
+  }, [
+    authState.currentToken,
+    dispatch,
+    logout,
+    searchBarState.query,
+    searchBarState.module,
+    toast,
+  ]);
 
   useEffect(() => {
     if (authState.authState && segmentsState.segments.length === 0) {

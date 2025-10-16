@@ -90,7 +90,7 @@ const LoginForm: React.FC = () => {
                   type="submit"
                   colorScheme="purple"
                   bg="primary.dark"
-                  _hover={{ bg: "primary.light" }}
+                  _hover={{ bg: 'primary.light' }}
                   size="lg"
                   w="full"
                   isLoading={loading}
@@ -103,7 +103,7 @@ const LoginForm: React.FC = () => {
           </Box>
 
           <Text fontSize="sm" color="text.light" textAlign="center">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Text as="span" color="primary.dark" cursor="pointer">
               Contact support
             </Text>

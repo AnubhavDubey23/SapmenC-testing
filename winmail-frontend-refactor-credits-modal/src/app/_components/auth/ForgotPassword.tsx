@@ -177,7 +177,7 @@ const ForgotPassword = (props: Props) => {
           onSubmit={async (values) => {
             if (values.newPassword !== values.reEnterPassword) {
               toast({
-                title: 'Passwords don\'t match',
+                title: "Passwords don't match",
                 status: 'error',
                 duration: 3000,
               });

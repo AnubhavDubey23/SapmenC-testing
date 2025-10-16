@@ -14,14 +14,19 @@ const handleResetDb = async () => {
       throw new Error('Connection to database failed');
     }
 
+    const db = (conn as Connection).db;
+    if (!db) {
+      throw new Error('MongoDB native db handle not available');
+    }
+
     console.log('Dropping database...');
     // find all the collections in the database
-    const collections = await conn.db.listCollections().toArray();
+    const collections = await db.listCollections().toArray();
 
     // drop all the collections
     for (const collection of collections) {
       console.log(`Dropping collection: ${collection.name}`);
-      await conn.db.dropCollection(collection.name);
+      await db.dropCollection(collection.name);
     }
 
     console.log('Database dropped');

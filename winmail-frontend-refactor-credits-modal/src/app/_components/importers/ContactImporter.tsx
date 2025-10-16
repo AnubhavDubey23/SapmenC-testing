@@ -51,12 +51,13 @@ const ContactImporter = ({ onClose, setLoading }: Props) => {
       const workbook = new ExcelJS.Workbook();
       const arrayBuffer = await file.arrayBuffer();
       await workbook.xlsx.load(arrayBuffer);
-      
+
       const worksheet = workbook.getWorksheet(1);
       const extractedData: FileData[] = [];
-      
+
       worksheet?.eachRow((row, rowNumber) => {
-        if (rowNumber > 1) { // Skip header row
+        if (rowNumber > 1) {
+          // Skip header row
           const name = row.getCell(1).value?.toString() || '';
           const email = row.getCell(2).value?.toString() || '';
           if (name && email) {
@@ -64,7 +65,7 @@ const ContactImporter = ({ onClose, setLoading }: Props) => {
           }
         }
       });
-      
+
       setData(extractedData);
       toast({
         title: 'File processed successfully',
