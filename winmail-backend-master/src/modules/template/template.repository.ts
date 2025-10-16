@@ -76,8 +76,18 @@ class TemplateRepository implements ITemplateRepository {
       if (!isAuthorized) {
         throw new Error('Not authorized to view this template');
       }
-      
-      return template;
+
+      // Attach computed email statistics to the template response
+      // Consumers (frontend) expect `res.data.stats` for the drawer charts
+      const stats = await getEmailLogsByTemplateId(id);
+
+      // Return a plain object with stats appended to avoid mutating the document
+      const templateWithStats = {
+        ...(template.toObject ? template.toObject() : (template as any)),
+        stats,
+      } as any;
+
+      return templateWithStats as ITemplate;
     } catch (err: any) {
       throw new Error(err);
     }
