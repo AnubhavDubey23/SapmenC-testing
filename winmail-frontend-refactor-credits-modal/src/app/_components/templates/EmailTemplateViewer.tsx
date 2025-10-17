@@ -10,24 +10,12 @@ const EmailTemplateViewer = () => {
   const { loading } = useGetTemplate();
 
   const { email_data } = useAppSelector((state) => state.selectedTemplate);
-  if (email_data === undefined || Object.keys(email_data).length === 0) {
-    return (
-      <Flex justify={'center'} align={'center'} h={'100%'}>
-        {'Select a template to view'}
-      </Flex>
-    );
-  }
 
-  if (loading) {
-    return (
-      <Flex justify={'center'} align={'center'} h={'100%'}>
-        <Loader />
-      </Flex>
-    );
-  }
-
-  // Normalize avatar blocks for preview so they render reliably
-  const normalizedDocument = useMemo(() => {
+  // IMPORTANT: Call hooks unconditionally on every render to avoid
+  // "Rendered fewer hooks than expected" errors when the component
+  // sometimes early-returns.
+  const normalizedDocument = useMemo<TReaderDocument | null>(() => {
+    if (!email_data || Object.keys(email_data).length === 0) return null;
     try {
       const doc: TReaderDocument = JSON.parse(
         JSON.stringify(email_data as TReaderDocument)
@@ -77,14 +65,30 @@ const EmailTemplateViewer = () => {
       });
       return doc;
     } catch {
-      return email_data as TReaderDocument;
+      return (email_data as TReaderDocument) ?? null;
     }
   }, [email_data]);
+
+  if (loading) {
+    return (
+      <Flex justify={'center'} align={'center'} h={'100%'}>
+        <Loader />
+      </Flex>
+    );
+  }
+
+  if (!email_data || Object.keys(email_data).length === 0) {
+    return (
+      <Flex justify={'center'} align={'center'} h={'100%'}>
+        {'Select a template to view'}
+      </Flex>
+    );
+  }
 
   return (
     <Box flex={'1'} overflowY={'auto'}>
       <VStack spacing={4} align="stretch">
-        <Reader document={normalizedDocument} rootBlockId="root" />
+        <Reader document={(normalizedDocument as TReaderDocument)} rootBlockId="root" />
       </VStack>
     </Box>
   );

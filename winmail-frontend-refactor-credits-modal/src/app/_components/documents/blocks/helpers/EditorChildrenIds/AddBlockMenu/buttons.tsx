@@ -87,6 +87,7 @@ export const BUTTONS: TButtonProps[] = [
       data: {
         props: {
           // Use a static placeholder image that all email clients load reliably
+          // Avoid ui-avatars (serves webp sometimes) to ensure deliverability/preview
           imageUrl: 'https://placehold.co/128x128/png?text=Avatar',
           size: 64,
           shape: 'circle',
