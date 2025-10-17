@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/store';
 import { Box, Flex, VStack } from '@chakra-ui/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import useGetTemplate from '@/hooks/template/useGetTemplate';
 import { Reader } from '@usewaypoint/email-builder';
 import { TReaderDocument } from '@usewaypoint/email-builder';
@@ -26,10 +26,65 @@ const EmailTemplateViewer = () => {
     );
   }
 
+  // Normalize avatar blocks for preview so they render reliably
+  const normalizedDocument = useMemo(() => {
+    try {
+      const doc: TReaderDocument = JSON.parse(
+        JSON.stringify(email_data as TReaderDocument)
+      );
+      const ensurePngAvatarUrl = (url: string) => {
+        if (!url) return url;
+        try {
+          const u = new URL(url);
+          if (u.hostname.includes('ui-avatars.com')) {
+            if (u.searchParams.get('format') !== 'png') {
+              u.searchParams.set('format', 'png');
+            }
+            return u.toString();
+          }
+        } catch {}
+        return url;
+      };
+
+      Object.keys(doc).forEach((key) => {
+        const node: any = (doc as any)[key];
+        if (node && node.type === 'Avatar') {
+          const current = node?.data?.props?.imageUrl as string | undefined;
+          const alt = (node?.data?.props?.alt as string | undefined) ?? 'Avatar';
+          const shape = (node?.data?.props?.shape as string | undefined) ?? 'circle';
+          const size = (node?.data?.props?.size as number | undefined) ?? 64;
+          const url = typeof current === 'string' ? ensurePngAvatarUrl(current) : '';
+
+          // Replace Avatar block with an Html block using a plain <img>,
+          // which renders consistently across email clients
+          const borderRadius =
+            shape === 'circle' ? '50%' : shape === 'rounded' ? '12px' : '0';
+          const contents = `<img src="${url}" alt="${alt}" width="${size}" height="${size}" style="display:block;border-radius:${borderRadius};" />`;
+
+          const prevStyle = node?.data?.style ?? {};
+          (doc as any)[key] = {
+            type: 'Html',
+            data: {
+              style: {
+                fontSize: 16,
+                textAlign: prevStyle.textAlign ?? null,
+                padding: prevStyle.padding ?? { top: 0, right: 0, bottom: 0, left: 0 },
+              },
+              props: { contents },
+            },
+          };
+        }
+      });
+      return doc;
+    } catch {
+      return email_data as TReaderDocument;
+    }
+  }, [email_data]);
+
   return (
     <Box flex={'1'} overflowY={'auto'}>
       <VStack spacing={4} align="stretch">
-        <Reader document={email_data as TReaderDocument} rootBlockId="root" />
+        <Reader document={normalizedDocument} rootBlockId="root" />
       </VStack>
     </Box>
   );

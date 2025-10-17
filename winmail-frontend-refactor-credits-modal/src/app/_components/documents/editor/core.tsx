@@ -24,11 +24,24 @@ import EditorBlockWrapper from '../blocks/helpers/block-wrappers/EditorBlockWrap
 const EDITOR_DICTIONARY = buildBlockConfigurationDictionary({
   Avatar: {
     schema: AvatarPropsSchema,
-    Component: (props) => (
-      <EditorBlockWrapper>
-        <Avatar {...props} />
-      </EditorBlockWrapper>
-    ),
+    Component: (data) => {
+      const props = {
+        ...data,
+        props: {
+          ...data.props,
+          imageUrl:
+            data.props?.imageUrl ??
+            'https://placehold.co/128x128/png?text=Avatar',
+          alt: data.props?.alt ?? 'Avatar',
+          shape: data.props?.shape ?? 'circle',
+        },
+      };
+      return (
+        <EditorBlockWrapper>
+          <Avatar {...props} />
+        </EditorBlockWrapper>
+      );
+    },
   },
   Button: {
     schema: ButtonPropsSchema,
