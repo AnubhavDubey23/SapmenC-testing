@@ -45,7 +45,32 @@ export const sendBatchEmails = async (
         recipient_name: name,
         tracking_pixel_url: trackingPixelUrl,
       });
-      const htmlBody = renderToStaticMarkup(emailTemplate as TReaderDocument, {
+      // Normalize avatar URLs to enforce PNG format for better email client compatibility
+      const normalizedDoc: TReaderDocument = JSON.parse(
+        JSON.stringify(emailTemplate as TReaderDocument)
+      );
+      Object.keys(normalizedDoc).forEach((key) => {
+        const node: any = (normalizedDoc as any)[key];
+        if (node && node.type === 'Avatar') {
+          const current = node?.data?.props?.imageUrl as string | undefined;
+          if (typeof current === 'string') {
+            try {
+              const u = new URL(current);
+              if (u.hostname.includes('ui-avatars.com')) {
+                if (u.searchParams.get('format') !== 'png') {
+                  u.searchParams.set('format', 'png');
+                }
+                node.data.props.imageUrl = u.toString();
+              }
+            } catch {}
+          }
+          if (!node?.data?.props?.size) {
+            node.data.props.size = 64;
+          }
+        }
+      });
+
+      const htmlBody = renderToStaticMarkup(normalizedDoc as TReaderDocument, {
         rootBlockId: 'root',
       });
       const htmlContent = htmlBody.replace(

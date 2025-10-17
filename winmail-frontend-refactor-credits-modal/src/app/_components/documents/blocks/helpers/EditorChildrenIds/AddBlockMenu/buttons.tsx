@@ -86,8 +86,11 @@ export const BUTTONS: TButtonProps[] = [
       type: 'Avatar',
       data: {
         props: {
-          imageUrl: 'https://ui-avatars.com/api/?size=128',
+          // Use a static placeholder image that all email clients load reliably
+          imageUrl: 'https://placehold.co/128x128/png?text=Avatar',
+          size: 64,
           shape: 'circle',
+          alt: 'User avatar',
         },
         style: { padding: { top: 16, bottom: 16, left: 24, right: 24 } },
       },
