@@ -86,8 +86,10 @@ export const BUTTONS: TButtonProps[] = [
       type: 'Avatar',
       data: {
         props: {
-          imageUrl: 'https://ui-avatars.com/api/?size=128',
+          // Provide a valid default avatar URL with name and explicit PNG format
+          imageUrl: 'https://ui-avatars.com/api/?name=User&size=128&format=png',
           shape: 'circle',
+          alt: 'User avatar',
         },
         style: { padding: { top: 16, bottom: 16, left: 24, right: 24 } },
       },
