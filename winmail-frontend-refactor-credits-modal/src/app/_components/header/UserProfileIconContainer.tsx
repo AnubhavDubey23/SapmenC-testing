@@ -40,10 +40,10 @@ const UserProfileIconContainer: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { profilePicture, updateProfilePicture } = useProfilePicture();
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     onClose();
     setSelectedItem(null);
-  };
+  }, [onClose]);
 
   const modalContent = useMemo(() => {
     if (!selectedItem) return null;
@@ -57,7 +57,7 @@ const UserProfileIconContainer: React.FC = () => {
         {selectedItem.modalChildren(handleCloseModal)}
       </GlobalModalWrapper>
     );
-  }, [selectedItem, isOpen]);
+  }, [selectedItem, isOpen, handleCloseModal]);
 
   const handleSetProfilePicture = useCallback(
     async (newProfilePicture: string) => {
@@ -75,7 +75,6 @@ const UserProfileIconContainer: React.FC = () => {
         iconPath: '/Profile.svg',
         modalChildren: (onClose) => (
           <MyProfile
-            key={profilePicture}
             onClose={onClose}
             setProfilePicture={handleSetProfilePicture}
             profilePicture={profilePicture}
@@ -117,7 +116,7 @@ const UserProfileIconContainer: React.FC = () => {
         modalSize: 'md',
       },
     ],
-    [handleSetProfilePicture, profilePicture]
+    [handleSetProfilePicture, profilePicture, onClose]
   );
 
   const handleItemClick = (item: HeaderItem) => {
@@ -163,7 +162,14 @@ const UserProfileIconContainer: React.FC = () => {
             _active={{ bg: 'transparent' }}
           >
             {profilePicture ? (
-              <Avatar size="md" src={profilePicture} />
+              <Avatar 
+                size="md" 
+                src={profilePicture}
+                onError={() => {
+                  // Fallback to default icon if avatar fails to load
+                  console.warn('Avatar image failed to load:', profilePicture);
+                }}
+              />
             ) : (
               <FaUser />
             )}

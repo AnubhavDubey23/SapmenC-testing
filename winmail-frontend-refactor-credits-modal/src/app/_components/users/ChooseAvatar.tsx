@@ -93,6 +93,10 @@ export default function ChooseAvatar({
                 borderRadius="md"
                 loading="eager"
                 fetchPriority="high"
+                onError={(e) => {
+                  console.warn('Avatar image failed to load:', avatar);
+                  // You could set a fallback image here if needed
+                }}
               />
             </Box>
           ))}
